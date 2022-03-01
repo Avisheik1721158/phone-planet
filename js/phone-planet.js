@@ -51,7 +51,7 @@ const displayPhoneDetail = data => {
         <div class="card-body">
              <h5 class="card-title"></h5>
              <img class="w-50 mx-auto " src="${data.image}" class="card-img-top" alt="...">
-        <p class="card-text"><h2 class="fs-5"> Main Features: </h2><p> Release Date:${data.releaseDate}  <p> Brand Name: ${data.slug}</p>
+        <p class="card-text"><h2 class="fs-5"> Main Features: </h2><p> Release Date:${data.releaseDate ? releaseDate : ' No Release date  found '}  <p> Brand Name: ${data.slug}</p>
         <p> Storage: ${data.mainFeatures.storage} </p>   <p>  Display: ${data.mainFeatures.displaySize} </p> <p> Chip Set: ${data.mainFeatures.chipSet}</p> <p> Memory: ${data.mainFeatures.memory}</p>
         </div >
     `
