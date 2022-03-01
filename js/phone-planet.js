@@ -14,27 +14,46 @@ const searchPhone = () => {
 const displaySearchResult = data => {
     const searchResult = document.getElementById('search-result')
     data.forEach(data => {
-        console.log(data)
+        // console.log(data)
         const div = document.createElement('div');
         div.classList.add('col')
         div.innerHTML = `  
-        <div class="col">
-        <div onclick="loadPhonedeatail()" class="card h-100">
-          <img class="w-50 mx-auto" src="${data.image}" class="card-img-top" alt="...">
+        
+        <div  class="card h-100 mt-5">
+          <img class="w-50 mx-auto " src="${data.image}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">${data.phone_name}</h5>
             <p class="card-text">${data.brand}</p>
-            <button onclick="loadPhonedeatail()" class="btn btn-success">Details</button>
+            <button onclick="loadPhonedetail('${data.slug}')" class="btn btn-success">Details</button>
           </div>
         </div>
        
-      </div> `
+       `
         searchResult.appendChild(div)
 
     })
 
 }
 // phone details
-const loadPhonedeatail = slug => {
+const loadPhonedetail = slug => {
     console.log(slug)
+    const url = `https://openapi.programming-hero.com/api/phone/${slug}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayPhoneDetail(data.data))
+}
+const displayPhoneDetail = data => {
+    const phoneDetails = document.getElementById('phone-details')
+    const div = document.createElement('div')
+    div.classList.add('card');
+    div.innerHTML = `
+    
+        <div class="card-body">
+             <h5 class="card-title"></h5>
+             <img class="w-50 mx-auto " src="${data.image}" class="card-img-top" alt="...">
+        <p class="card-text"><h2 class="fs-5"> Main Features: </h2><p> Release Date:${data.releaseDate}  <p> Brand Name: ${data.slug}</p>
+        <p> Storage: ${data.mainFeatures.storage} </p>   <p>  Display: ${data.mainFeatures.displaySize} </p> <p> Chip Set: ${data.mainFeatures.chipSet}</p> <p> Memory: ${data.mainFeatures.memory}</p>
+        </div >
+    `
+    phoneDetails.appendChild(div)
 }
