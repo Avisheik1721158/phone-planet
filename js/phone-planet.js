@@ -2,6 +2,7 @@
 const searchPhone = () => {
     const searchField = document.getElementById('search-field')
     const searchText = searchField.value;
+
     // console.log(searchText)
     searchField.value = ''
 
@@ -12,11 +13,19 @@ const searchPhone = () => {
         .then(data => displaySearchResult(data.data))
 }
 const displaySearchResult = data => {
+    const slice = data.slice(0, 20)
+    console.log(slice);
     const searchResult = document.getElementById('search-result')
-    data.forEach(data => {
+
+    slice.forEach(data => {
         // console.log(data)
+        console.log(data)
+
         const div = document.createElement('div');
+
         div.classList.add('col')
+
+
         div.innerHTML = `  
         
         <div  class="card h-100 mt-5">
@@ -30,6 +39,7 @@ const displaySearchResult = data => {
        
        `
         searchResult.appendChild(div)
+
 
     })
 
@@ -53,6 +63,9 @@ const displayPhoneDetail = data => {
              <img class="w-50 mx-auto " src="${data.image}" class="card-img-top" alt="...">
         <p class="card-text"><h2 class="fs-5"> Main Features: </h2><p> Release Date:${data.releaseDate ? releaseDate : ' No Release date  found '}  <p> Brand Name: ${data.slug}</p>
         <p> Storage: ${data.mainFeatures.storage} </p>   <p>  Display: ${data.mainFeatures.displaySize} </p> <p> Chip Set: ${data.mainFeatures.chipSet}</p> <p> Memory: ${data.mainFeatures.memory}</p>
+        <p> Sensors: ${data.mainFeatures.sensors} </p>
+        <p> Others: ${data.others.WLAN}, ${data.others.Bluetooth}, ${data.others.GPS}, ${data.others.NFC},
+        ${data.others.NFC}, ${data.others.Radio}, ${data.others.USB} </p>
         </div >
     `
     phoneDetails.appendChild(div)
