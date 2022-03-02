@@ -13,13 +13,14 @@ const searchPhone = () => {
         .then(data => displaySearchResult(data.data))
 }
 const displaySearchResult = data => {
+    // 20 cards sliced
     const slice = data.slice(0, 20)
     console.log(slice);
     const searchResult = document.getElementById('search-result')
 
     slice.forEach(data => {
-        // console.log(data)
         console.log(data)
+
 
         const div = document.createElement('div');
 
@@ -46,7 +47,7 @@ const displaySearchResult = data => {
 }
 // phone details
 const loadPhonedetail = slug => {
-    console.log(slug)
+    // console.log(slug)
     const url = `https://openapi.programming-hero.com/api/phone/${slug}`
     fetch(url)
         .then(res => res.json())
@@ -55,18 +56,34 @@ const loadPhonedetail = slug => {
 const displayPhoneDetail = data => {
     const phoneDetails = document.getElementById('phone-details')
     const div = document.createElement('div')
+    console.log(data.mainFeatures.storage)
     div.classList.add('card');
     div.innerHTML = `
     
         <div class="card-body">
              <h5 class="card-title"></h5>
-             <img class="w-50 mx-auto " src="${data.image}" class="card-img-top" alt="...">
-        <p class="card-text"><h2 class="fs-5"> Main Features: </h2><p> Release Date:${data.releaseDate ? releaseDate : ' No Release date  found '}  <p> Brand Name: ${data.slug}</p>
-        <p> Storage: ${data.mainFeatures.storage} </p>   <p>  Display: ${data.mainFeatures.displaySize} </p> <p> Chip Set: ${data.mainFeatures.chipSet}</p> <p> Memory: ${data.mainFeatures.memory}</p>
-        <p> Sensors: ${data.mainFeatures.sensors} </p>
-        <p> Others: ${data.others.WLAN}, ${data.others.Bluetooth}, ${data.others.GPS}, ${data.others.NFC},
-        ${data.others.NFC}, ${data.others.Radio}, ${data.others.USB} </p>
+             <img class="w-50 mx-auto" src="${data.image}" class="card-img-top" alt="...">
+        <p class="card-text"><h2 class="fs-5"> Main Features: </h2> 
+        <p>  ${data.releaseDate}
+        <p>  ${data.releaseDate ? '' : ' Release Date: Not Found '}
+
+                       
+            <p> Brand Name: ${data.slug}</p >
+        <p> Storage:    ${data.mainFeatures.storage} </p>   
+        <p> Display:   ${data.mainFeatures.displaySize} </p> 
+        <p> Chip Set:   ${data.mainFeatures.chipSet}</p> 
+        <p> Memory:     ${data.mainFeatures.memory}</p>
+        <p> Sensors:    ${data.mainFeatures.sensors} </p>
+        <p> Others:     ${data.others.WLAN},
+                        ${data.others.WLAN ? '' : ' WLAN not found '},
+                        
+                        ${data.others.Bluetooth}, 
+                        ${data.others.GPS}, 
+                        ${data.others.NFC},
+                        ${data.others.Radio},
+                        ${data.others.USB} </p>
         </div >
     `
     phoneDetails.appendChild(div)
 }
+// show more option
