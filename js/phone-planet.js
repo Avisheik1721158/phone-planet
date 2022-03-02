@@ -8,21 +8,48 @@ const searchPhone = () => {
 
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
     // console.log(url)
+
     fetch(url)
         .then(res => res.json())
         .then(data => displaySearchResult(data.data))
 }
 const displaySearchResult = data => {
+    // console.log(data)
+
+
     // 20 cards sliced
     const slice = data.slice(0, 20)
-    console.log(slice);
+    // console.log(slice);
     const searchResult = document.getElementById('search-result')
+    if (data.length - 1 == -1) {
+
+        const div1 = document.createElement('div')
+        div1.classList.add('col')
+
+
+        div1.innerHTML = `  
+        <div class="card  text-white bg-danger mb-3 mx-auto w-50 mt-4 " style="max-width: 18rem;">
+        <button type="button" class="btn-close" aria-label="Close"></button>
+        <div class="card-header">Ooops!!</div>
+        <div class="card-body">
+          <h5 class="card-title">Try Again!</h5>
+          <p class="card-text">Your result is not match to our result!</p>
+        </div>
+      </div>
+
+           `
+        searchResult.appendChild(div1)
+
+    }
 
     slice.forEach(data => {
-        console.log(data)
+        // console.log(data)
+
 
 
         const div = document.createElement('div');
+        // search result error handling
+
 
         div.classList.add('col')
 
@@ -56,7 +83,7 @@ const loadPhonedetail = slug => {
 const displayPhoneDetail = data => {
     const phoneDetails = document.getElementById('phone-details')
     const div = document.createElement('div')
-    console.log(data.mainFeatures.storage)
+    // console.log(data.mainFeatures.storage)
     div.classList.add('card');
     div.innerHTML = `
     
@@ -75,8 +102,6 @@ const displayPhoneDetail = data => {
         <p> Memory:     ${data.mainFeatures.memory}</p>
         <p> Sensors:    ${data.mainFeatures.sensors} </p>
         <p> Others:     ${data.others.WLAN},
-                        ${data.others.WLAN ? '' : ' WLAN not found '},
-                        
                         ${data.others.Bluetooth}, 
                         ${data.others.GPS}, 
                         ${data.others.NFC},
@@ -85,5 +110,7 @@ const displayPhoneDetail = data => {
         </div >
     `
     phoneDetails.appendChild(div)
+
 }
+
 // show more option
