@@ -21,6 +21,7 @@ const displaySearchResult = data => {
     const slice = data.slice(0, 20)
     // console.log(slice);
     const searchResult = document.getElementById('search-result')
+    // search result error handling
     if (data.length - 1 == -1) {
 
         const div1 = document.createElement('div')
@@ -48,7 +49,7 @@ const displaySearchResult = data => {
 
 
         const div = document.createElement('div');
-        // search result error handling
+
 
 
         div.classList.add('col')
@@ -83,6 +84,7 @@ const loadPhonedetail = slug => {
 const displayPhoneDetail = data => {
     const phoneDetails = document.getElementById('phone-details')
     const div = document.createElement('div')
+    console.log(data)
     // console.log(data.mainFeatures.storage)
     div.classList.add('card');
     div.innerHTML = `
@@ -101,12 +103,14 @@ const displayPhoneDetail = data => {
         <p> Chip Set:   ${data.mainFeatures.chipSet}</p> 
         <p> Memory:     ${data.mainFeatures.memory}</p>
         <p> Sensors:    ${data.mainFeatures.sensors} </p>
-        <p> Others:     ${data.others.WLAN},
-                        ${data.others.Bluetooth}, 
-                        ${data.others.GPS}, 
-                        ${data.others.NFC},
-                        ${data.others.Radio},
-                        ${data.others.USB} </p>
+            
+        <p> Others:     ${data?.others?.WLAN ? data.others.WLAN : ' has not updated yet'},
+                        ${data?.others?.Bluetooth ? data.others.Bluetooth : ''}, 
+                        ${data?.others?.GPS ? data.others.GPS : ''}, 
+                        ${data?.others?.NFC ? data.others.NFC : ''},
+                        ${data?.others?.Radio ? data.others.Radio : ''},
+                        ${data?.others?.USB ? data.others.USB : ''} </p>
+         
         </div >
     `
     phoneDetails.appendChild(div)
